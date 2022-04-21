@@ -235,8 +235,6 @@ switch (ENVIRONMENT)
 	// Name of the "system" directory
 	define('SYSDIR', basename(BASEPATH));
 
-	define('GH_PAGES_PATH', FCPATH . 'gh-pages' .DIRECTORY_SEPARATOR);
-
 	// The path to the "application" directory
 	if (is_dir($application_folder))
 	{
@@ -269,8 +267,6 @@ switch (ENVIRONMENT)
 	}
 
 	define('APPPATH', $application_folder.DIRECTORY_SEPARATOR);
-
-	define('MARKDOWNPATH', APPPATH . 'markdown');
 
 
 // The path to the "views" directory

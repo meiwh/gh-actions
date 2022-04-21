@@ -11,7 +11,7 @@ class Generate extends CI_Controller
 	}
 
 	public function index($type = 'html') {
-		$this->process(MARKDOWN_PATH, $type);
+		$this->process(MARKDOWN_SRC_PATH, $type);
 	}
 
 	private function process($dir = '', $type = 'html') {
@@ -27,7 +27,7 @@ class Generate extends CI_Controller
 				continue;
 			}
 
-			$prefix = str_replace(MARKDOWN_PATH, '', $File->getRealPath());
+			$prefix = str_replace(MARKDOWN_SRC_PATH, '', $File->getRealPath());
 			$str = file_get_contents($File->getRealPath());
 			$html = $this->parsedown->text($str);
 
@@ -53,7 +53,7 @@ class Generate extends CI_Controller
 			}
 		}
 		$str = $this->parser->parse(str_replace([VIEWPATH, '.php'], ['', ''], $tpl), $data, TRUE);
-		$this->render(GH_PAGES_PATH . str_replace('.php', '.html', $prefix), $str);
+		$this->render(MARKDOWN_HTML_PATH . str_replace('.php', '.html', $prefix), $str);
 	}
 
 	private function render($absFilePath = '', $str = '') {

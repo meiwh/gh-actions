@@ -4,7 +4,7 @@ on:
     branches:
       - master
     paths:
-      - 'application/markdown/**'
+      - 'markdown/src/**'
 jobs:
   Auto-deploy-markdown:
     runs-on: ubuntu-latest
@@ -31,4 +31,4 @@ jobs:
         with:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           BRANCH: gh-pages
-          folder: gh-pages # The folder the action should deploy.
+          folder: markdown/dist # The folder the action should deploy.

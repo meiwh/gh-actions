@@ -4,14 +4,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Markdown extends CI_Controller
 {
 
-	protected $markdownPath;
-
 	public function __construct() {
 		parent::__construct();
 		$this->load->library('parsedown');
 		$this->load->library('parser');
-
-		$this->markdownPath = MARKDOWN_PATH;
 	}
 
 	public function index() {
@@ -19,12 +15,12 @@ class Markdown extends CI_Controller
 		$segments = $router->uri->segments;
 
 		$md = implode(DIRECTORY_SEPARATOR, $segments);
-		if (file_exists(MARKDOWN_PATH . "{$md}.md")) {
+		if (file_exists(MARKDOWN_SRC_PATH . "{$md}.md")) {
 			$this->render($md);
 			return;
 		}
 		$md .= '/index';
-		if (file_exists(MARKDOWN_PATH . "{$md}.md")) {
+		if (file_exists(MARKDOWN_SRC_PATH . "{$md}.md")) {
 			$this->render($md);
 			return;
 		}
@@ -33,7 +29,7 @@ class Markdown extends CI_Controller
 
 
 	private function render($md, $extData = []) {
-		$parsed = $this->parsedown->text(file_get_contents(MARKDOWN_PATH . "{$md}.md"));
+		$parsed = $this->parsedown->text(file_get_contents(MARKDOWN_SRC_PATH . "{$md}.md"));
 		$data = array_merge(['time' => time(), 'html' => $parsed], $extData);
 		$tpl = VIEWPATH . "template/{$md}.php";
 		if (!file_exists($tpl)) {

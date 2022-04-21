@@ -6,6 +6,7 @@ class Welcome extends CI_Controller {
 
 	public function index()
 	{
+		var_dump(FCPATH);
 		$this->load->library('parsedown');
 		$this->load->view('welcome');
 	}
