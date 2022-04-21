@@ -11,7 +11,7 @@ class Generate extends CI_Controller
 	}
 
 	public function index($type = 'html') {
-		$this->process(APPPATH . MARKDOWN_PATH, $type);
+		$this->process(MARKDOWN_PATH, $type);
 	}
 
 	private function process($dir = '', $type = 'html') {
@@ -27,30 +27,33 @@ class Generate extends CI_Controller
 				continue;
 			}
 
-			$prefix = str_replace(APPPATH, '', $File->getRealPath());
+			$prefix = str_replace(MARKDOWN_PATH, '', $File->getRealPath());
 			$str = file_get_contents($File->getRealPath());
 			$html = $this->parsedown->text($str);
+
 			if ($type == 'html') {
-				$this->parseHtml($prefix, $html);
-			} else {
-				$this->parsePHP($prefix, $html);
+				$this->toHtml($prefix, $html);
 			}
 		}
 	}
 
-	private function parsePHP($prefix, $str) {
-		$distFile = VIEWPATH . str_replace('.md', '.php', $prefix);
-		$this->render($distFile, $str);
-	}
 
-	private function parseHtml($prefix, $html) {
-		$prefix = str_replace(MARKDOWN_PATH, '', $prefix);
+	private function toHtml($prefix, $html) {
+		$prefix = str_replace(['.md'], ['.php'], $prefix);
+
 		$data = array(
 			'time' => time(),
 			'html' => $html
 		);
-		$str = $this->parser->parse("template/default", $data);
-		$this->render(GH_PAGES_PATH . str_replace('.md', '.html', $prefix), $str);
+		$tpl = VIEWPATH . "template/{$prefix}";
+		if (!file_exists($tpl)) {
+			$tpl = dirname($tpl) . '/default.php';
+			if (!file_exists($tpl)) {
+				throw new Exception('template not found !!!', 404);
+			}
+		}
+		$str = $this->parser->parse(str_replace([VIEWPATH, '.php'], ['', ''], $tpl), $data, TRUE);
+		$this->render(GH_PAGES_PATH . str_replace('.php', '.html', $prefix), $str);
 	}
 
 	private function render($absFilePath = '', $str = '') {

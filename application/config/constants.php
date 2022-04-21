@@ -88,4 +88,4 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 
 
 
-defined('MARKDOWN_PATH') OR define('MARKDOWN_PATH', 'markdown');
+defined('MARKDOWN_PATH') OR define('MARKDOWN_PATH', APPPATH . 'markdown/');
