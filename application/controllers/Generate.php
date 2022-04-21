@@ -10,11 +10,11 @@ class Generate extends CI_Controller
 		$this->load->library('parser');
 	}
 
-	public function index() {
-		$this->process(APPPATH . MARKDOWN_PATH);
+	public function index($type = 'html') {
+		$this->process(APPPATH . MARKDOWN_PATH, $type);
 	}
 
-	private function process($dir = '') {
+	private function process($dir = '', $type = 'html') {
 		$Folder = new DirectoryIterator($dir);
 		foreach ($Folder as $File) {
 			if ($File->isDir() && !$File->isDot()) {
@@ -30,7 +30,7 @@ class Generate extends CI_Controller
 			$prefix = str_replace(APPPATH, '', $File->getRealPath());
 			$str = file_get_contents($File->getRealPath());
 			$html = $this->parsedown->text($str);
-			if (true || time() % 2 == 0) {
+			if ($type == 'html') {
 				$this->parseHtml($prefix, $html);
 			} else {
 				$this->parsePHP($prefix, $html);
