@@ -1,8 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Generate extends CI_Controller {
-
+class Generate extends CI_Controller
+{
 
 	public function __construct() {
 		parent::__construct();
@@ -10,34 +10,27 @@ class Generate extends CI_Controller {
 		$this->load->library('parser');
 	}
 
-	public function index()
-	{
-		$this->aaa(APPPATH . MARKDOWN_PATH);
+	public function index() {
+		$this->process(APPPATH . MARKDOWN_PATH);
 	}
 
-	private function aaa($dir = ''){
+	private function process($dir = '') {
 		$Folder = new DirectoryIterator($dir);
 		foreach ($Folder as $File) {
 			if ($File->isDir() && !$File->isDot()) {
-				$this->aaa($File->getPathname());
+				$this->process($File->getPathname());
 			}
 
 			$filename = $File->getFilename();
 			$extension = pathinfo($filename, PATHINFO_EXTENSION);
-			if ($extension !== 'md')
-			{
+			if ($extension !== 'md') {
 				continue;
 			}
 
 			$prefix = str_replace(APPPATH, '', $File->getRealPath());
-
-
 			$str = file_get_contents($File->getRealPath());
-
-			$html =  $this->parsedown->text($str);
-
-
-			if (time() % 2 == 0) {
+			$html = $this->parsedown->text($str);
+			if (true || time() % 2 == 0) {
 				$this->parseHtml($prefix, $html);
 			} else {
 				$this->parsePHP($prefix, $html);
@@ -53,17 +46,16 @@ class Generate extends CI_Controller {
 	private function parseHtml($prefix, $html) {
 		$prefix = str_replace(MARKDOWN_PATH, '', $prefix);
 		$data = array(
-			'time'   => time(),
+			'time' => time(),
 			'html' => $html
 		);
 		$str = $this->parser->parse("template/default", $data);
-		$this->render(GH_PAGES_PATH  . str_replace('.md', '.html', $prefix), $str);
+		$this->render(GH_PAGES_PATH . str_replace('.md', '.html', $prefix), $str);
 	}
 
 	private function render($absFilePath = '', $str = '') {
-
 		$distDir = dirname($absFilePath);
-		if(!is_dir($distDir)) {
+		if (!is_dir($distDir)) {
 			mkdir($distDir);
 		}
 		file_put_contents($absFilePath, $str);

@@ -16,3 +16,10 @@ jobs:
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
       - run: php -v
+      - run: php index.php Generate index
+      - name: Deploy
+          uses: JamesIves/github-pages-deploy-action@4.1.1
+          with:
+            ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+            BRANCH: gh-pages
+            folder: gh-pages # The folder the action should deploy.
