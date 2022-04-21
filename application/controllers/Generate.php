@@ -18,7 +18,7 @@ class Generate extends CI_Controller
 		$Folder = new DirectoryIterator($dir);
 		foreach ($Folder as $File) {
 			if ($File->isDir() && !$File->isDot()) {
-				$this->process($File->getPathname());
+				$this->process($File->getPathname(), $type);
 			}
 
 			$filename = $File->getFilename();
