@@ -31,4 +31,4 @@ jobs:
         with:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           BRANCH: gh-pages
-          folder: markdown/dist # The folder the action should deploy.
+          folder: markdown/html # The folder the action should deploy.
