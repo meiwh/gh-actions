@@ -5,15 +5,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <?php $this->load->view('commons/header'); ?>
 <body>
 
-<div id="container">
-	<h1>Welcome to Index! {time}</h1>
-
-	<div id="body">
+<main role="main" class="flex-shrink-0">
+	<div class="container" style="margin-top: 10%;">
 		{html}
 	</div>
-
-	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
-</div>
+</main>
 <?php $this->load->view('commons/footer'); ?>
 </body>
 </html>
