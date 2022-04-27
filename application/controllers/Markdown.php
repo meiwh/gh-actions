@@ -6,7 +6,7 @@ class Markdown extends CI_Controller
 
 	public function __construct() {
 		parent::__construct();
-		$this->load->library('parsedown');
+		$this->load->library('parsedownextra', null, 'parsedown');
 		$this->load->library('parser');
 	}
 

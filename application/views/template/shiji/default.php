@@ -5,15 +5,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <?php $this->load->view('commons/header'); ?>
 <body>
 
-<div id="container">
-	<h1>This is shiji default template {time}</h1>
-
-	<div id="body">
-		{html}
+<main role="main" class="flex-shrink-0">
+	<div class="container">
+		<h1>This is shiji default template {time}</h1>
+		<div class="content">{html}</div>
 	</div>
-
-	<p class="footer">Page rendered in <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
-</div>
+</main>
 <?php $this->load->view('commons/footer'); ?>
 </body>
 </html>

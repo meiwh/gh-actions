@@ -1,5 +1,5 @@
 <?php
-
+include_once 'Parsedown.php';
 #
 #
 # Parsedown Extra
@@ -378,7 +378,7 @@ class ParsedownExtra extends Parsedown
                 'element' => array(
                     'name' => 'a',
                     'attributes' => array('href' => '#fn:'.$name, 'class' => 'footnote-ref'),
-                    'text' => $this->DefinitionData['Footnote'][$name]['number'],
+                    'text' => '(' . $this->DefinitionData['Footnote'][$name]['number'],
                 ),
             );
 
