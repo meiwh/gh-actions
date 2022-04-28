@@ -1106,25 +1106,28 @@ class Parsedown
 		if (!isset($Excerpt['text'][1])) {
 			return;
 		}
-		$marker = $Excerpt['text'][0];
-		if ($Excerpt['text'][1] === $marker and preg_match($this->StrongRegex[$marker], $Excerpt['text'], $matches)) {
-			$emphasis = 'strong';
-		} elseif (preg_match($this->EmRegex[$marker], $Excerpt['text'], $matches)) {
-			$emphasis = 'em';
-		} else {
-			return;
-		} // r d g
-		return array(
-			'extent' => strlen($matches[0]),
+		$result = array(
 			'element' => array(
-				'name' => $emphasis,
 				'handler' => array(
 					'function' => 'lineElements',
-					'argument' => $matches[1],
 					'destination' => 'elements',
 				)
 			),
-		);
+		);;
+		$marker = $Excerpt['text'][0];
+		if ($Excerpt['text'][1] === $marker and preg_match($this->StrongRegex[$marker], $Excerpt['text'], $matches)) {
+			$emphasis = 'strong';
+			$result['element']['attributes']['class'] = $marker == '__' ? 'r2' : 'd2';
+		} elseif (preg_match($this->EmRegex[$marker], $Excerpt['text'], $matches)) {
+			$emphasis = 'em';
+			$result['element']['attributes']['class'] = $marker == '_' ? 'r' : 'd';
+		} else {
+			return;
+		}
+		$result['extent'] = strlen($matches[0]);
+		$result['element']['name'] = $emphasis;
+		$result['element']['handler']['argument'] = $matches[1];
+		return $result;
 	}
 
 	protected function inlineEscapeSequence($Excerpt) {
@@ -1186,9 +1189,9 @@ class Parsedown
 				'name' => 'ruby',
 				'handler' => array(
 					'function' => 'lineElements',
-					'argument' => $word . "<rt>{$pinyin}</rt>",
+					'argument' => $word . "<rt>{$pinyin}</rt>", // TODO , 可用elemets 继续解析
 					'destination' => 'elements',
-				)
+				),
 			),
 		);
 	}
