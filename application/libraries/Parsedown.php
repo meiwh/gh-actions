@@ -1177,9 +1177,10 @@ class Parsedown
 	 * @return array|void
 	 */
 	protected function inlinePinyin($Excerpt) {
-		$reg = '/^[(]\s*+((?:[^ ()]++|\s*+|[(][^ )]+[)])++)(?:[ ]+("[^"]*+"|\s*+|\'[^\']*+\'))?\s*+[)]/';
+		$reg = '/^[(]\s*([\x{4e00}-\x{9fa5}]+)\s*\|((?:[^()]+|[(][^)]+[)])+)\s*[)]/u';
 		if (preg_match($reg, $Excerpt['text'], $matches)) {
-			list($word, $pinyin) = explode("|", $matches[1]);
+			$word = trim($matches[1]);
+			$pinyin = trim($matches[2]);
 		} else {
 			return;
 		}
