@@ -25,7 +25,7 @@ class Pressdown
 				$line = fgets($file);
 
 				if ($delimitators < 2) {
-					if (preg_match('/---\s+\n/', $line)) {
+					if (preg_match('/---\s{0,}/', $line)) {
 						$delimitators += 1;
 						continue;
 					}
