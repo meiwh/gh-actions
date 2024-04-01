@@ -25,7 +25,7 @@ jobs:
         with:
           persist-credentials: false
       - run: php -v
-      - run: php index.php Generate index
+      - run: php index.php Generate html
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.1
         with:
