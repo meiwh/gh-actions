@@ -29,7 +29,29 @@ class Markdown extends CI_Controller
 
 
 	private function render($md, $extData = []) {
-		$parsed = $this->parsedown->text(file_get_contents(MARKDOWN_SRC_PATH . "{$md}.md"));
+		$fpath = MARKDOWN_SRC_PATH . "{$md}.md";
+
+		$md_content = '';
+		// --
+		$file = fopen($fpath, 'r');
+		$delimitators = 0;
+		while (!feof($file)) {
+			$line = fgets($file);
+			if ($delimitators != 2) {
+				if ($line === "---\n") {
+					$delimitators += 1;
+				} else {
+					$d = explode(":", $line, 2);
+					$extData[trim($d[0])] = trim(trim($d[1]), '"');
+				}
+			} else {
+				$md_content .= $line;
+			}
+		}
+		fclose($file);
+
+
+		$parsed = $this->parsedown->text($md_content);
 		$data = array_merge(['time' => time(), 'html' => $parsed], $extData);
 		$tpl = VIEWPATH . "template/{$md}.php";
 		if (!file_exists($tpl)) {
