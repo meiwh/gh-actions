@@ -47,6 +47,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		top: -1.3em;
 		color: #666;
 		font-size: .5em;
+		background-color: bisque;
+		padding-right: 5px;
 	}
 
 	.p-notes {
