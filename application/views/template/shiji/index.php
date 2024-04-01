@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 
 <div id="container">
-	<h1>This is shiji index template {time}</h1>
+	<h1>This is shiji index template {generated_time}</h1>
 
 	<div id="body">
 		{html}

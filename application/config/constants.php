@@ -89,5 +89,5 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 
 
 defined('MARKDOWN_SRC_PATH') OR define('MARKDOWN_SRC_PATH', FCPATH . 'markdown/src/');
-
+defined('TEMPLATE_PATH') OR define('TEMPLATE_PATH', VIEWPATH . 'template/');
 defined('MARKDOWN_HTML_PATH') OR define('MARKDOWN_HTML_PATH', FCPATH . 'markdown/html/');

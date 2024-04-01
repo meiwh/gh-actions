@@ -69,7 +69,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 <main role="main" class="flex-shrink-0">
 	<div class="container-lg">
-		<h1>{time}</h1>
+		<h1>{generated_time}</h1>
 		<div class="content">
 			{html}
 		</div>
