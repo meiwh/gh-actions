@@ -5,13 +5,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <?php $this->load->view('commons/header'); ?>
 <style type="text/css">
 	body {
-		background-color: #F6F6F6;
+		background-color: #CCEED0;
 	}
 
 	p {
 		font-size: 1.3rem;
 		font-family: monospace;
 		color: #000;
+		line-height: 40px;
+		margin-bottom: 4rem;
 	}
 
 	em.r {

@@ -23,8 +23,9 @@ class Pressdown
 			$delimitators = 0;
 			while (!feof($file)) {
 				$line = fgets($file);
+
 				if ($delimitators < 2) {
-					if ($line === "---\n") {
+					if (preg_match('/---\s+\n/', $line)) {
 						$delimitators += 1;
 						continue;
 					}
@@ -104,7 +105,6 @@ class Pressdown
 		);
 		$_vars['generated_time'] = date('Y-m-d H:i:s');
 		$html = $this->parser($abs_path, $_vars);
-
 
 		$_vars['html'] = $html;
 
