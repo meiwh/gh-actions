@@ -6,13 +6,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 
 <div id="container">
-	<h1>This is shiji index template {generated_time}</h1>
+	<h1>This is shiji index template</h1>
 
 	<div id="body">
-		{html}
+		<?php foreach ($data as $item) {?>
+			<a href="<?=$item['href']?>"><?=$item['title'] ?? ''?></a><br/>
+		<?php }?>
 	</div>
 
-	<p class="footer">Page rendered in <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
 </div>
 <?php $this->load->view('commons/footer'); ?>
 </body>
