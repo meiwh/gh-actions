@@ -22,12 +22,8 @@ class Markdown extends CI_Controller
 		if (file_exists($path = MARKDOWN_SRC_PATH . "{$md}/")) {
 
 
-
-			$path = strtr(
-				$path,
-				'/\\',
-				DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
-			);
+			// 转换字符或替换字串
+			$path = strtr($path, '/\\', DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR);
 
 			$Folder = new DirectoryIterator($path);
 
@@ -85,6 +81,12 @@ class Markdown extends CI_Controller
 			return;
 		}
 		show_404('not found');
+	}
+
+
+	protected function catalog($dir)
+	{
+		
 	}
 
 }
